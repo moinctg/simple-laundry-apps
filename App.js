@@ -1,10 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import HomeScreen from './screens/HomeScreen';
 
 export default function App() {
+  state = {
+    myState :'this is text components'
+  }
+  updateState = ()=> this.setState({myState:'the state is updated'})
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <HomeScreen></HomeScreen>
+      
       <StatusBar style="auto" />
     </View>
   );
