@@ -1,8 +1,12 @@
-import { StyleSheet, Text, View, SafeAreaView, Alert, Pressable,Image } from 'react-native'
+import { SafeAreaView  } from 'react-native-safe-area-context';
+import { StyleSheet, Text, View, Alert, Pressable,Image, TextInput,Platform,StatusBar } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons'; 
 
 import * as Location from 'expo-location';
+import Carousel from '../components/Carousel';
+
 
 const HomeScreen = () => {
     const [displayCurrentAddress, setdisplayCurrentAddress] = useState(
@@ -59,7 +63,7 @@ const HomeScreen = () => {
       
     
     const {coords} = await Location.getCurrentPositionAsync();
-    console.log(coords)
+    // console.log(coords)
 
     if(coords){
         const {latitude,longitude} = coords;
@@ -69,7 +73,7 @@ const HomeScreen = () => {
             latitude,
         });
 
-        console.log(response)
+        // console.log(response)
         for (let item of response){
             let address = `${item.name} ${item.city} ${item.postalCode} ` ;
             setdisplayCurrentAddress(address);
@@ -80,7 +84,10 @@ const HomeScreen = () => {
 
     
   return (
-    <SafeAreaView>
+    <SafeAreaView edges={['right', 'bottom', 'left','top']}>
+      
+       
+
         {/* location and profile  */}
         <View style ={{ flexDirection:"row",alignItems:"center",padding:10 }}>
         <Entypo name="location" size={30} color="#E32636" />
@@ -88,16 +95,32 @@ const HomeScreen = () => {
         <Text style={{ fontSize:18,fontWeight:"600"}}>Home</Text>
       <Text>{displayCurrentAddress}</Text>
       </View>
-      <Pressable style={{marginLeft:"auto", marginRight:8}}>
-        <Image  style= {{ width:35, height:35 ,borderRadius:15}} 
+      <Pressable style={{marginLeft:"auto", marginRight:15}}>
+        <Image  style= {{ width:35, height:35 ,borderRadius:20}} 
         source ={{ uri: "https://lh3.googleusercontent.com/ogw/AGvuzYb3BqoF3VVOZ4TaqMQzyoAIzj_d1KfkDiNfXMmbRg=s32-c-mo", }}/>
       </Pressable>
       </View> 
 
       {/* Search Bar  */}
+      <View style=
+      {{ padding:10, 
+        margin:10, 
+        flexDirection:"row",
+         alignItems:"center",
+         justifyContent:"space-between" ,
+         borderWidth:0.8,
+         borderColor:"#C0C0C0"
+      }}>
+        <TextInput placeholder='Serach Item' ></TextInput>
+        <Feather name="search" size={18} color="#fd5c63" />
+      </View>
+
+      {/* Carousel Image  */}
+      <Carousel/>
       
 
-    </SafeAreaView>
+      </SafeAreaView>
+
   )
 }
 
