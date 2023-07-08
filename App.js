@@ -1,29 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View ,SafeAreaView} from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HomeScreen from './screens/HomeScreen';
+import store from './store'
+import { Provider } from 'react-redux';
 
 export default function App() {
-  state = {
-    myState :'this is text components'
-  }
-  updateState = ()=> this.setState({myState:'the state is updated'})
+  
   return (
    
-    <View style={styles.container}>
+    <SafeAreaProvider >
+      <Provider store={store}>
       <HomeScreen></HomeScreen>
+
+      </Provider>
       
-      <StatusBar style="auto" />
-    </View>
-    
+    </SafeAreaProvider>
    
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
