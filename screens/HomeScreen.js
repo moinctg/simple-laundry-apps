@@ -1,7 +1,7 @@
 
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StyleSheet, Text, View, Alert, Pressable, Image, TextInput, Platform, StatusBar, ScrollView } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useInsertionEffect, useState } from 'react'
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
@@ -11,12 +11,18 @@ import Service from '../components/Service';
 import DressItem from '../components/DressItem';
 import { useSelector,useDispatch } from 'react-redux';
 import { getProduct } from '../ProductReducer';
+import { useNavigation } from '@react-navigation/native';
 
 
 const HomeScreen = () => {
   const cart = useSelector((state) => state.cart.cart);
-  console.log(cart);
+  const total = cart.map((item) => item.quantity * item.price).reduce((curr,prev) => curr + prev,0);
+  // console.log(cart)
+  // console.log(cart);
+  const navigation = useNavigation();
   const insets = useSafeAreaInsets();
+
+
   const [displayCurrentAddress, setdisplayCurrentAddress] = useState(
     "we are loading your location"
   );
@@ -90,7 +96,7 @@ const HomeScreen = () => {
   };
 
   const product = useSelector((state) => state.product.product);
-  console.log("products array",product)
+  // console.log("products array",product)
   const dispatch = useDispatch();
  
   useEffect ( () => {
@@ -157,6 +163,7 @@ const HomeScreen = () => {
 
 
   return (
+    <>
     <ScrollView style={{ flex: 1, paddingTop: insets.top, backgroundColor: "#F0F0F0" }}>
 
 
@@ -200,11 +207,51 @@ const HomeScreen = () => {
         ))}
     </ScrollView>
 
+    { total === 0 ? (
+      null
+    ): (
+      <Pressable 
+      style={{
+        backgroundColor: "#088F8F",
+        padding:10,
+        marginBottom:40,
+        margin:15,
+        borderRadius:7,
+        flexDirection:'row',
+        alignItems:"center",
+        justifyContent:"space-between"
+
+      }}
+      >
+
+    <View>
+  <Text style={{ fontSize:17,fontWeight:"600",color:"white"}}>{cart.length} Items |  {total}</Text>
+  <Text style={{ fontSize:13, fontWeight:"400",color:"white",marginVertical:6}}> Extra Charge might apply</Text>
+    </View>
+
+    <Pressable onPress= { () => navigation.navigate("PicUp")} >
+      <Text
+       style={{
+        fontSize:12,
+        fontWeight:"600",
+        color:"white",
 
 
 
-  )
-}
+      }}> Proceed to Pickup </Text>
+      </Pressable>
+
+    </Pressable>
+
+    )}
+    
+  
+
+
+    </>
+
+  );
+};
 
 export default HomeScreen
 

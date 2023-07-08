@@ -1,8 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HomeScreen from './screens/HomeScreen';
+import { NavigationContainer } from '@react-navigation/native';
 import store from './store'
 import { Provider } from 'react-redux';
+import StackNavigator from './StackNavigator';
 
 export default function App() {
   
@@ -10,7 +12,7 @@ export default function App() {
    
     <SafeAreaProvider >
       <Provider store={store}>
-      <HomeScreen></HomeScreen>
+      <StackNavigator/>
 
       </Provider>
       
