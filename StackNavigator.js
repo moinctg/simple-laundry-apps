@@ -7,6 +7,7 @@ import PickUpScreen from './screens/PickUpScreen';
 import CartScreen from './screens/CartScreen';
 import OrderScreen from './screens/OrderScreen';
 import Loginscreen from './screens/Loginscreen';
+import RegisterScreen from './screens/RegisterScreen';
 
 
 export default function StackNavigator() {
@@ -19,6 +20,7 @@ export default function StackNavigator() {
       <Stack.Screen name="PicUp" component={PickUpScreen}  options={{headShown:false}}/>
       <Stack.Screen name="Cart" component={CartScreen}  options={{headShown:false}}/>
       <Stack.Screen name="Order" component={OrderScreen}  options={{headShown:false}}/>
+      <Stack.Screen name="Register" component={RegisterScreen}  options={{headShown:false}}/>
     </Stack.Navigator>
   </NavigationContainer>
   )
